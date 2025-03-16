@@ -1,0 +1,43 @@
+version: "2"
+services:
+   web:
+      image: php:8.2-apache
+      build: .
+      container_name: app_sf_web
+      networks:
+         - rezo_app_sf_web
+      ports:
+         - "8050:8000"
+      volumes:
+         - ../backend:/var/www/html
+   db:
+      image: mysql:5.7
+      container_name: app_sf_db
+      networks:
+         - rezo_app_sf_web
+         - rezo_app_sf_pma
+      volumes:
+          - mysql_data:/var/lib/mysql
+      environment:
+         - MYSQL_ROOT_PASSWORD=${MY_ROOT_PASSWORD}
+         - MYSQL_DATABASE=${MY_DATABASE}
+         - MYSQL_USER=${MY_USER}
+         - MYSQL_PASSWORD=${MY_PASSWORD}
+
+   pma:
+      image: phpmyadmin:5.2
+      container_name: app_sf_pma
+      networks:
+         - rezo_app_sf_pma
+      ports:
+         - "8060:80"
+      environment:
+         - PMA_HOST=db # ou app_sf_db
+
+networks:
+   rezo_app_sf_web:
+   rezo_app_sf_pma:
+
+volumes:
+    sf:
+    mysql_data:
