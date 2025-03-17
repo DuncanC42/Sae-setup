@@ -2,14 +2,8 @@ FROM node:23
 
 WORKDIR /app
 
-# Copier les fichiers de dépendances
-COPY ./panelAdmin/package*.json ./
-
-# Installer les dépendances
-RUN npm install
-
-# Copier le reste des sources
-COPY ./panelAdmin .
+# Les dépendances seront installées via le volume monté
+# Pas besoin de copier les fichiers car ils seront montés via le volume
 
 # Exposer le port
 EXPOSE 8081

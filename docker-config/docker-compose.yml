@@ -47,6 +47,8 @@ services:
          - ../frontend:/app
       environment:
          - NODE_ENV=development
+      # Ajouter cette commande pour installer les dépendances au démarrage
+      command: sh -c "npm install && npm run dev -- --host 0.0.0.0"
 
    panel-admin:
       build:
@@ -61,6 +63,8 @@ services:
          - ../panelAdmin:/app
       environment:
          - NODE_ENV=development
+      # Ajouter cette commande pour installer les dépendances au démarrage
+      command: sh -c "npm install && npm run dev -- --host 0.0.0.0"
 
 networks:
    rezo_app_sf_web:
