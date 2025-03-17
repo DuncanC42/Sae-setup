@@ -1,0 +1,10 @@
+FROM node:23
+
+WORKDIR /app
+
+# Installer Vue CLI globalement
+RUN npm install -g @vue/cli
+
+# Utiliser un volume pour persister les données
+
+CMD ["tail", "-f", "/dev/null"]

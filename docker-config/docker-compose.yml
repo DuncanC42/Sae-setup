@@ -17,7 +17,7 @@ services:
          - rezo_app_sf_web
          - rezo_app_sf_pma
       volumes:
-          - mysql_data:/var/lib/mysql
+         - mysql_data:/var/lib/mysql
       environment:
          - MYSQL_ROOT_PASSWORD=${MY_ROOT_PASSWORD}
          - MYSQL_DATABASE=${MY_DATABASE}
@@ -32,12 +32,26 @@ services:
       ports:
          - "8060:80"
       environment:
-         - PMA_HOST=db # ou app_sf_db
+         - PMA_HOST=db
+
+   frontend:
+      build:
+         context: ..
+         dockerfile: docker-config/Dockerfile_vue
+      container_name: app_vue_frontend
+      networks:
+         - rezo_app_sf_web
+      ports:
+         - "8080:8080"
+      volumes:
+         - ../frontend:/app
+      environment:
+         - NODE_ENV=development
 
 networks:
    rezo_app_sf_web:
    rezo_app_sf_pma:
 
 volumes:
-    sf:
-    mysql_data:
+   sf:
+   mysql_data:
